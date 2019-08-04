@@ -1,24 +1,34 @@
 puts "Введите коэффициент уравнения 'a':"
-a = gets.chomp
+a = gets.to_i
 
 puts "Введите коэффициент уравнения 'b':"
-b = gets.chomp
+b = gets.to_i
 
 puts "Введите коэффициент уравнения 'c':"
-c = gets.chomp
+c = gets.to_i
 
-d = (b.to_i**2) - (4 * a.to_i * c.to_i)
+d = (b**2) - (4 * a * c)
 puts "Дискриминант уравнения равен: #{d}"
 
-  if d > 0
-    rootd = Math.sqrt(d)
-    x1 = (rootd - (b.to_i))/2 * a.to_i
-    x2 = (rootd - (-b.to_i))/2 * a.to_i
-    puts "Первый корень уравнения равен: #{x1.to_i}"
-    puts "Второй корень уравнения равен: #{x2.to_i}"
-  elsif d == 0
-    x = (-b.to_i)/2 * a.to_i
-    puts "Корни уравнения равны: #{x.to_i}"
-  else
-    puts "Корней нет"
-  end
+if d > 0
+  rootd = Math.sqrt(d)
+  x1 = (rootd - (b))/2 * a
+  x2 = (rootd - (-b))/2 * a
+  puts "Первый корень уравнения равен: #{x1}"
+  puts "Второй корень уравнения равен: #{x2}"
+elsif d == 0
+  x = (-b)/2 * a
+  puts "Корни уравнения равны: #{x}"
+else
+  puts "Корней нет"
+end
+=begin
+По пробелам вокруг "/" не понял. В гайде написано так:
+# bad
+o_scale = 1 / 48r
+
+# good
+o_scale = 1/48r
+
+Будьте добры уточнить.
+=end
