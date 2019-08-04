@@ -1,8 +1,10 @@
 puts "Введите длину основания треугольника в сантиметрах"
-basis = gets.chomp
+basis = gets.to_f
 
 puts "Введите высоту треугольника в сантиметрах"
-height = gets.chomp
+height = gets.to_f
+
+s = 0.5 * basis * height
 
 puts "При длине основания a = #{basis} см и высоте h = #{height} см
-площадь треуголька равна S = #{(0.5 * basis.to_i * height.to_i).to_i} см"
+площадь треуголька равна S = #{s} см"
