@@ -24,18 +24,28 @@ months = {
   "december" => 31,
   }
 #Проверка високосного года
-if year % 4 == 0 || year % 400 == 0 || year == 2000
-  months["febraury"] = 29
-else
-  months["febraury"] = 28
-end
+months["febraury"] = 29 if year % 4 == 0 || year % 400 == 0
 #Подсчет дней до текущей даты
 res = 0
+months.keys.each do |key|
+  if months[key] != month
+    res += months[key]
+    break else
+  end
+end
+res += day.to_i
+puts res
+#Не выходит с .each. Я полтора вечера просидел продумал как с .each сделать и
+# не вышло у меня, решил через for сделать. Сейчас ответ неправильный выдает
+# этот .each
+
+=begin
 for i in months.keys
   if i != month
     res += months[i]
   else break
   end
 end
-res += day.to_i
+=end
+#res += day.to_i
 puts res
