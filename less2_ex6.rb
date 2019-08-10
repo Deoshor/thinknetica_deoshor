@@ -7,17 +7,17 @@
 #купленного товара. Также вывести итоговую сумму за каждый товар.
 # - Вычислить и вывести на экран итоговую сумму всех покупок в "корзине".
 basket = {}
-while true
+loop do
   puts "Enter the name of product"
   product = gets.chomp
-  if product == "stop"
-    break else
-    puts "Enter the price"
-    price = gets.chomp.to_i
-    puts "Enter the amount"
-    amount = gets.chomp.to_f
-    basket[product] = Hash[price, amount]
-  end
+  break if product == "stop"
+  puts "Enter the price"
+  price = gets.chomp.to_i
+  puts "Enter the amount"
+  amount = gets.chomp.to_f
+  basket[product] = Hash[price, amount] #Здесь не разобрался, почему не так? Я 
+#просто пустой хэш создал, что работать с ним из первого хэша.
+end
 end
 puts "Goods in the basket:"
 puts basket
