@@ -26,4 +26,4 @@ num_of_vowels = list.values_at("a","e","i","o","u","y") #не смог обра�
 #Схлопываю два массива: гласные и порядковые номера
 numbers = vowels.zip(num_of_vowels)
 puts answer = Hash[*numbers.flatten]
-=end
+=end 
