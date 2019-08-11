@@ -15,9 +15,9 @@ loop do
   price = gets.chomp.to_i
   puts "Enter the amount"
   amount = gets.chomp.to_f
-  basket[product] = Hash[price, amount] #Здесь не разобрался, почему не так? Я 
-#просто пустой хэш создал, что работать с ним из первого хэша.
-end
+  basket[product] = Hash[price, amount] 
+# Сверху должен быть хэш с символами { price: price, amount: amount }, но я полдня 
+# просидел и так не смог заставить его перемножать (в 30 строке) значения этих символов.
 end
 puts "Goods in the basket:"
 puts basket
