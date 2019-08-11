@@ -5,47 +5,19 @@
 #Алгоритм опредления високосного года: www.adm.yar.ru
 puts "Enter the day"
 day = gets.chomp.to_i
-puts "Enter the month (for example, january)"
+puts "Enter the month"
 month = gets.chomp
 puts "Enter the year"
 year = gets.chomp.to_i
-months = {
-  "january" => 31,
-  "febraury" => 28,
-  "march" => 31,
-  "april" => 30,
-  "may" => 31,
-  "june" => 30,
-  "july" => 31,
-  "august" => 31,
-  "september" => 30,
-  "october" => 31,
-  "november" => 30,
-  "december" => 31,
-  }
-#Проверка високосного года
-months["febraury"] = 29 if year % 4 == 0 || year % 400 == 0
-#Подсчет дней до текущей даты
-res = 0
-months.keys.each do |key|
-  if months[key] != month
-    res += months[key]
-    break else
-  end
+# определяем месяца
+default_months =  [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+# Проверка високосного года
+if year % 4 == 0 && year % 100 != 0 || year % 400 == 0
+  default_months[1] = 29
 end
-res += day.to_i
-puts res
-#Не выходит с .each. Я полтора вечера просидел продумал как с .each сделать и
-# не вышло у меня, решил через for сделать. Сейчас ответ неправильный выдает
-# этот .each
-
-=begin
-for i in months.keys
-  if i != month
-    res += months[i]
-  else break
-  end
-end
-=end
-#res += day.to_i
-puts res
+# Берем  первые месяца который нам нужны и узнаем их сумму в общем (-1 делаем для того что бы убрать текущий месяц)
+total = default_months.take(month - 1).sum
+# Добавляем оставшиеся дни
+total += day
+puts total
+#Очередное классное решение в пару строк, без всяких циклов и прочего
