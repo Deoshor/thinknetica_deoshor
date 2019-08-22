@@ -1,22 +1,22 @@
 class Station
-  attr_accessor :station_name, :train
-  def initialize(station_name)
-    @station_name = station_name
+  attr_accessor :name, :train, :type
+  attr_reader :trains
+
+  def initialize(name)
+    @name = name
     @trains = []
   end
-  def trains
-    puts @trains
-  end
+
   def trains_add(train, type)
-    @trains << train
-    @trains << type
+    @trains = [train, type]
   end
+
   def trains_delete(train)
-    d = @trains.index(train)
     @trains.delete(train)
-    @trains.delete_at(d)
   end
+
   def trains_type(train)
     @trains.count(train)
   end
+
 end
