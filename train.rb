@@ -1,15 +1,15 @@
 require_relative 'station.rb'
 require_relative 'route.rb'
 class Train
-  attr_accessor :number
-  attr_reader :route, :speed, :wagons, :type
+  attr_accessor :number, :route
+  attr_reader :speed, :wagons, :type, :present
 
   def initialize(number, type, wagons)
     @number = number
     @type = type
-    @wagons = wagons
+    @wagons = wagons.to_i
     @speed = 0
-    @pres_stat = []
+    @present = []
     @x = 0
   end
 
@@ -17,73 +17,58 @@ class Train
     @speed += speed.to_i
   end
 
-  def train_stop
+  def stop
     @speed = 0
   end
 
-  def train_in
+  def in
     if @speed == 0
-      t = @train.at(2)
-      t += 1
-      @train[2] = t
+      @wagons += 1
     else
       puts "Остановите поезд, чтобы прицепить вагоны."
     end
   end
 
-  def train_out
+  def out
     if @speed == 0
-      t = @train.at(2)
-      t -= 1
-      @train[2] = t
+      @wagons -= 1
     else
       puts "Остановите поезд, чтобы отцепить вагоны."
     end
   end
 
-  def train_goto(route)
+  def goto(route)
     @route = route
-    if @pres_stat != @route.last
+    if @present != @route.last
       @x += 1
-      @pres_stat = @route.at(0 + @x.to_i)
-      @pres_stat
+      @present = @route.at(0 + @x.to_i)
     else
       puts "Поезд №#{@number} на конечной станции"
     end
   end
 
-  def train_backto(route)
+  def backto(route)
     @route = route
-    if @pres_stat != @route.first
+    if @present != @route.first
       @x -= 1
-      @pres_stat = @route.at(0 + @x.to_i)
-      @pres_stat
+      @present = @route.at(0 + @x.to_i)
     else
       puts "Поезд №#{@number} на начальной станции"
     end
   end
 
-  def station_present
-    @pres_stat
-  end
-
-  def station_next
-    station_index = @route.index(@pres_stat)
+  def next
+    station_index = @route.index(@present)
     @route.at(station_index + 1)
-    @nrt
   end
 
-  def station_last
-    station_index = @route.index(@pres_stat)
+  def last
+    station_index = @route.index(@present)
     @route.at(station_index - 1)
   end
 
 end
 
 
-#@pres_stat - это текущая станция
+#@present - это текущая станция
 #@x - нужен для счетчика итераций, чтобы передвигаться по маршруту
-#В конце при вызове методов определяющих следующую и предыдущую
-#станцию не может быть в индексе -1. Мы же вызываем сам метод, не 
-#не подставляя туда значения индекса. А у метода есть ограничения,
-#за которые он не шагнет.
