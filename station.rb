@@ -1,14 +1,14 @@
 class Station
-  attr_accessor :name, :train, :type
-  attr_reader :trains
+  attr_accessor :train
+  attr_reader :trains, :name
 
   def initialize(name)
     @name = name
     @trains = []
   end
 
-  def trains_add(train, type)
-    @trains = [train, type]
+  def trains_add(train)
+    @trains << train
   end
 
   def trains_delete(train)
