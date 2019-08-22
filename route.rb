@@ -1,21 +1,22 @@
+require_relative 'station.rb'
 class Route
-  attr_accessor :first_station, :last_station
-  def initialize(first_station, last_station)
-    @first_station = first_station
-    @last_station = last_station
+  attr_reader :station_name, :route
+
+  def initialize(station_name)
+    @station_name = station_name
     @route = []
-    @route << first_station
-    @route << last_station
   end
-    def route_add(station_add)
-    x = @route[-1]
-    @route[-1] = station_add
-    @route << x
+
+  def route_create(station_name1, station_name2)
+    @route << [station_name1, station_name2]
   end
-  def route_delete(station_delete)
+
+  def station_add(station_add)
+    @route.insert(-2, station_add)
+  end
+
+  def station_delete(station_delete)
     @route.delete(station_delete)
   end
-  def route
-    @route
-  end
+
 end
