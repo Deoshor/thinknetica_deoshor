@@ -1,9 +1,13 @@
 require_relative 'station.rb'
 class Route
-  attr_reader :route, :first, :last
+  attr_accessor :route, :first, :last
 
   def initialize(first, last)
-    @route << [first, last]
+    @first = first
+    @last = last
+    @route = []
+    @route << first
+    @route << last
   end
 
   def station_add(station_add)
