@@ -1,6 +1,7 @@
+require_relative 'train.rb'
 class Station
-  attr_accessor :train
-  attr_reader :trains, :name
+  attr_accessor :train, :name, :type
+  attr_reader :trains
 
   def initialize(name)
     @name = name
@@ -15,8 +16,8 @@ class Station
     @trains.delete(train)
   end
 
-  def trains_type(train)
-    @trains.count(train)
+  def trains_type(type)
+    @trains.count { |train| train.type == type }
   end
 
 end
