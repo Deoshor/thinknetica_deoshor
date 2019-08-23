@@ -9,8 +9,11 @@ class Train
     @type = type
     @wagons = wagons.to_i
     @speed = 0
-    @present = []
-    @x = 0
+    @current_index = 0
+  end
+
+  def set_route(route)
+    @route = route
   end
 
   def speedup(speed)
@@ -31,27 +34,25 @@ class Train
 
   def out
     if @speed == 0
-      @wagons -= 1
+      @wagons -= 1 if @wagons > 0
     else
       puts "Остановите поезд, чтобы отцепить вагоны."
     end
   end
 
-  def goto(route)
-    @route = route
+  def goto
     if @present != @route.last
-      @x += 1
-      @present = @route.at(0 + @x.to_i)
+      @current_index += 1
+      @present = @route.at(0 + @current_index.to_i)
     else
       puts "Поезд №#{@number} на конечной станции"
     end
   end
 
-  def backto(route)
-    @route = route
+  def backto
     if @present != @route.first
-      @x -= 1
-      @present = @route.at(0 + @x.to_i)
+      @current_index -= 1
+      @present = @route.at(0 + @current_index.to_i)
     else
       puts "Поезд №#{@number} на начальной станции"
     end
@@ -64,11 +65,10 @@ class Train
 
   def last
     station_index = @route.index(@present)
+    if station_index > 0
     @route.at(station_index - 1)
+    end
   end
 
 end
 
-
-#@present - это текущая станция
-#@x - нужен для счетчика итераций, чтобы передвигаться по маршруту
