@@ -13,8 +13,8 @@ class Route
     @route.insert(-2, station_add)
   end
 
-  def station_delete(station_delete)
-    @route.delete(station_delete)
+  def station_remove(station_remove)
+    @route.delete(station_remove)
   end
 
 end

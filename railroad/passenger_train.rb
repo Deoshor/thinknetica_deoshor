@@ -1,3 +1,4 @@
+require_relative './train.rb'
 class PassengerTrain < Train
 
   TRAIN_TYPE = 'passenger'

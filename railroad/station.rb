@@ -1,17 +1,22 @@
 class Station
-  attr_accessor :train, :name, :type
-  attr_reader :trains
+  attr_reader :name, :trains
 
   def initialize(name)
     @name = name
     @trains = []
   end
 
+  def trains_list
+    puts "На станции #{name} в данный момент: "
+    puts
+
+  end
+
   def trains_add(train)
     @trains << train
   end
 
-  def trains_delete(train)
+  def trains_remove(train)
     @trains.delete(train)
   end
 

@@ -1,70 +1,88 @@
+#load './railroad/train.rb'
+require_relative './cargo_train.rb'
+require_relative './passenger_train.rb'
 class Train
-  attr_accessor :number, :route
-  attr_reader :speed, :wagons, :type, :present
+  attr_accessor :wagons, :route, :speed, :current_station
+  attr_reader :number, :type
 
-  def initialize(number, type, wagons)
-    @number = number
-    @type = type
-    @wagons = wagons.to_i
-    @speed = 0
-    @current_index = 0
-  end
-
-  def set_route(route)
+  def route_set(route)
     @route = route
+    @current_station = @route.stations.first
+    @station_index = @route.stations.index(@current_station)
   end
 
-  def speedup(speed)
-    @speed += speed.to_i
+  def speedup
+    @speed += 10
+    puts "Поезд №#{@number}. Текущая скорость #{@speed} км/ч"
   end
 
   def stop
     @speed = 0
+    puts "Поезд №#{@number}. Текущая скорость #{@speed} км/ч"
   end
 
-  def in
-    if @speed == 0
-      @wagons += 1
+  def train_length
+    puts "Количество вагонов в поезде: #{@wagons.size}"
+  end
+
+  def wagons_add(wagon)
+    if @type != wagon.type
+      puts "Тип вагона не совпадает с типом поезда"
+    elsif @speed > 0
+      puts "Остановите поезд, чтобы прицепить вагоны"
     else
-      puts "Остановите поезд, чтобы прицепить вагоны."
+      @wagons << wagon
+      puts "Вагон прицеплен!"
+      train_length
     end
   end
 
-  def out
-    if @speed == 0
-      @wagons -= 1 if @wagons > 0
+  def wagons_remove(wagon)
+    if @speed > 0
+      puts "Остановите поезд, чтобы отцепить вагоны"
+    elsif @wagons.include? wagon
+      @wagons.delete(wagon)
+      puts @wagons
+      puts "Вагон отцеплен!"
+      train_length
     else
-      puts "Остановите поезд, чтобы отцепить вагоны."
+      puts "Такого вагона не существует"
     end
   end
 
-  def goto
-    if @present != @route.last
-      @current_index += 1
-      @present = @route.at(0 + @current_index.to_i)
+  def station_first?
+    @current_station == @route.station.first
+  end
+
+  def station_last?
+    @current_station == @route.station.last
+  end
+
+  def station_next
+    if station_last?
+      puts "Поезд №#{@number} находится на конечной станции"
     else
-      puts "Поезд №#{@number} на конечной станции"
+      @station_next = @route.route[@station_index + 1]
     end
   end
 
-  def backto
-    if @present != @route.first
-      @current_index -= 1
-      @present = @route.at(0 + @current_index.to_i)
+  def station_prev
+    if station_first?
+      puts "Поезд №#{@number} находится на конечной станции"
     else
-      puts "Поезд №#{@number} на начальной станции"
+      @station_prev = @route.route[@station_index - 1]
     end
   end
 
-  def next
-    station_index = @route.index(@present)
-    @route.at(station_index + 1)
-  end
 
-  def last
-    station_index = @route.index(@present)
-    if station_index > 0
-    @route.at(station_index - 1)
+  def move_next
+    if last_station?
+      puts "Поезд №#{@number} находится на конечной станции маршрута"
+    else
+      @station_index += 1
+      @next_station = @route.route[@station_index]
+      puts "Поезд № #{@number} был отправлен со станции
+      '#{@current_station.name}' в сторону станции '#{@next_station.name}' "
     end
   end
 
