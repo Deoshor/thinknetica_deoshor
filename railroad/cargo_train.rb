@@ -1,11 +1,8 @@
-require_relative './train.rb'
 class CargoTrain < Train
-
-  TRAIN_TYPE = 'cargo'
 
   def initialize(number)
     @number = number
-    @type = TRAIN_TYPE
+    @type = 'cargo'
     @wagons = []
     @speed = 0
   end

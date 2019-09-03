@@ -1,20 +1,23 @@
 class Route
-  attr_accessor :route, :first, :last
+  attr_reader :stations
 
   def initialize(first, last)
-    @first = first
-    @last = last
-    @route = []
-    @route << first
-    @route << last
+    @stations = [first, last]
   end
 
-  def station_add(station_add)
-    @route.insert(-2, station_add)
+  def station_add(station)
+    @stations.insert(-2, station)
+    puts "Станция #{station.name} добавлена в маршрут"
   end
 
-  def station_remove(station_remove)
-    @route.delete(station_remove)
+  def station_remove(station)
+    @stations.delete(station)
   end
+
+  def show_route
+      puts "Станции на маршруте #{@stations[0]} - #{@stations[-1]}"
+      @stations.each_with_index { |stations, i| puts "#{i + 1}. #{stations}" }
+      puts
+    end
 
 end

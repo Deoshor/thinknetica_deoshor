@@ -1,6 +1,6 @@
 #load './railroad/train.rb'
-require_relative './cargo_train.rb'
-require_relative './passenger_train.rb'
+require_relative './route.rb'
+
 class Train
   attr_accessor :wagons, :route, :speed, :current_station
   attr_reader :number, :type
@@ -9,6 +9,7 @@ class Train
     @route = route
     @current_station = @route.stations.first
     @station_index = @route.stations.index(@current_station)
+    @route.stations.first.accept_train(self)
   end
 
   def speedup
@@ -51,18 +52,18 @@ class Train
   end
 
   def station_first?
-    @current_station == @route.station.first
+    @current_station == @route.stations.first
   end
 
   def station_last?
-    @current_station == @route.station.last
+    @current_station == @route.stations.last
   end
 
   def station_next
     if station_last?
       puts "Поезд №#{@number} находится на конечной станции"
     else
-      @station_next = @route.route[@station_index + 1]
+      @station_next = @route.stations[@station_index + 1]
     end
   end
 
@@ -70,20 +71,38 @@ class Train
     if station_first?
       puts "Поезд №#{@number} находится на конечной станции"
     else
-      @station_prev = @route.route[@station_index - 1]
+      @station_prev = @route.stations[@station_index - 1]
     end
   end
 
 
   def move_next
-    if last_station?
+    if station_last?
       puts "Поезд №#{@number} находится на конечной станции маршрута"
     else
       @station_index += 1
-      @next_station = @route.route[@station_index]
-      puts "Поезд № #{@number} был отправлен со станции
-      '#{@current_station.name}' в сторону станции '#{@next_station.name}' "
+      move
     end
+  end
+
+  def move_prev
+    if station_first?
+      puts "Поезд №#{@number} находится на начальной станции маршрута"
+    else
+      @station_index -= 1
+      move
+    end
+  end
+
+  protected
+  
+  def move
+    @current_station.trains.delete(self)
+    @next_station = @route.stations[@station_index]
+    puts "Поезд № #{@number} был отправлен со станции '#{@current_station.name}'
+     в сторону станции '#{@next_station.name}' "
+    @prev_station, @current_station = @current_station, @next_station
+    @current_station.accept_train(self)
   end
 
 end

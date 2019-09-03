@@ -6,10 +6,18 @@ class Station
     @trains = []
   end
 
-  def trains_list
-    puts "На станции #{name} в данный момент: "
-    puts
+  def accept_train(train)
+      @trains << train unless @trains.include?(train)
+      puts "Поезд № #{train.number} прибыл на станцию '#{@name}'"
+      puts
+  end
 
+  def trains_list
+    puts "На станции #{@name} в данный момент: "
+    puts
+    @trains.each do |train|
+      puts "№ поезда: #{train.number} - тип поезда: '#{train.type}' - количество вагонов: #{train.wagons.size}"
+    end
   end
 
   def trains_add(train)
