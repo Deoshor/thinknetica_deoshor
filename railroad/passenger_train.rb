@@ -1,10 +1,8 @@
 class PassengerTrain < Train
 
-  def initialize(number)
-    @number = number
+  def initialize
+    super
     @type = 'passenger'
-    @wagons = []
-    @speed = 0
   end
 
 end
