@@ -74,8 +74,8 @@ class RailRoad
           train_menu
         when 0
           main_menu
-        end
       end
+    end
   end
 
   def station_menu
@@ -88,22 +88,23 @@ class RailRoad
 
       print 'Выберите пункт меню: '
       input = gets.chomp.to_i
-      if input == 1
-        create_station
-        station_menu
-      elsif input == 2
-        all_stations
-        station_menu
-      elsif input == 3
-        all_stations
-        puts
-        print "Выберите станцию: "
-        station = gets.chomp.to_i
-        @stations[station - 1].trains_list
-        puts
-        station_menu
+      case input
+        when 1
+          create_station
+          station_menu
+        when 2
+          all_stations
+          station_menu
+        when 3
+          all_stations
+          puts
+          print "Выберите станцию: "
+          station = gets.chomp.to_i
+          @stations[station - 1].trains_list
+          puts
+          station_menu
+        end
       end
-    end
     main_menu
   end
 
@@ -112,29 +113,28 @@ class RailRoad
     puts "2. Посмотреть список всех маршрутов"
     puts "3. Добавить станцию в маршрут"
     puts "0. Главное меню"
-
     print 'Выберите пункт меню: '
     input = gets.chomp.to_i
-    if input == 0
-      main_menu
-    elsif input == 1
-      create_route
-      route_menu
-    elsif input == 2
-      all_routes
-      route_menu
-    elsif input == 3
-      all_routes
-      puts
-      print "Выберите маршрут "
-      route = gets.chomp.to_i
-      all_stations
-      puts
-      print "Выберите станцию "
-      station = gets.chomp.to_i
-      @routes[route - 1].station_add(@stations[station - 1])
-    end
-      route_menu
+    case input
+        main_menu
+      when 1
+        create_route
+        route_menu
+      when 2
+        all_routes
+        route_menu
+      when 3
+        all_routes
+        puts
+        print "Выберите маршрут "
+        route = gets.chomp.to_i
+        all_stations
+        puts
+        print "Выберите станцию "
+        station = gets.chomp.to_i
+        @routes[route - 1].station_add(@stations[station - 1])
+      end
+    route_menu
   end
 
 
@@ -176,17 +176,17 @@ class RailRoad
   end
 
   def move_train_menu
-        puts "1. Вперед"
-        puts "2. Назад"
-        puts "0. Главное меню"
-        puts
-        print "В какую сторону переместить поезд? "
+    puts "1. Вперед"
+    puts "2. Назад"
+    puts "0. Главное меню"
+    puts
+    print "В какую сторону переместить поезд? "
   end
 
   def all_trains
-        @trains.each.with_index(1) do |train, index|
-          puts "#{index}. #{train.number} | #{train.type}"
-        end
+    @trains.each.with_index(1) do |train, index|
+      puts "#{index}. #{train.number} | #{train.type}"
+    end
   end
 
   def all_wagons
