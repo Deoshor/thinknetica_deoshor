@@ -4,7 +4,13 @@ require_relative './route.rb'
 class Train
   attr_accessor :wagons, :route, :speed, :current_station
   attr_reader :number, :type
-
+  
+  def initialize(number)
+    @number = number
+    @wagons = []
+    @speed = 0
+  end
+  
   def route_set(route)
     @route = route
     @current_station = @route.stations.first
