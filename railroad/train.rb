@@ -1,4 +1,3 @@
-#load './railroad/train.rb'
 require_relative './route.rb'
 
 class Train
@@ -95,7 +94,7 @@ class Train
   end
 
   protected
-  
+
   def move
     @current_station.trains.delete(self)
     @next_station = @route.stations[@station_index]

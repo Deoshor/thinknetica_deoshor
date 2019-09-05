@@ -116,7 +116,6 @@ class RailRoad
     print 'Выберите пункт меню: '
     input = gets.chomp.to_i
     case input
-        main_menu
       when 1
         create_route
         route_menu
@@ -133,6 +132,8 @@ class RailRoad
         print "Выберите станцию "
         station = gets.chomp.to_i
         @routes[route - 1].station_add(@stations[station - 1])
+      when 0
+        main_menu
       end
     route_menu
   end
@@ -272,18 +273,18 @@ class RailRoad
     @trains << train10 = PassengerTrain.new('P001')
     @trains << train11 = PassengerTrain.new('O624')
 
-    @unused_wagons << wagon1 = CargoWagons.new('c1')
-    @unused_wagons << wagon2 = CargoWagons.new('c2')
-    @unused_wagons << wagon3 = CargoWagons.new('c3')
-    @unused_wagons << wagon4 = CargoWagons.new('c4')
-    @unused_wagons << wagon5 = CargoWagons.new('c5')
-    @unused_wagons << wagon6 = CargoWagons.new('c6')
-    @unused_wagons << wagon7 = PassengerWagons.new('p1')
-    @unused_wagons << wagon8 = PassengerWagons.new('p2')
-    @unused_wagons << wagon9 = PassengerWagons.new('p3')
-    @unused_wagons << wagon10 = PassengerWagons.new('p4')
-    @unused_wagons << wagon11 = PassengerWagons.new('p5')
-    @unused_wagons << wagon12 = PassengerWagons.new('p6')
+    @unused_wagons << wagon1 = CargoWagon.new('c1')
+    @unused_wagons << wagon2 = CargoWagon.new('c2')
+    @unused_wagons << wagon3 = CargoWagon.new('c3')
+    @unused_wagons << wagon4 = CargoWagon.new('c4')
+    @unused_wagons << wagon5 = CargoWagon.new('c5')
+    @unused_wagons << wagon6 = CargoWagon.new('c6')
+    @unused_wagons << wagon7 = PassengerWagon.new('p1')
+    @unused_wagons << wagon8 = PassengerWagon.new('p2')
+    @unused_wagons << wagon9 = PassengerWagon.new('p3')
+    @unused_wagons << wagon10 = PassengerWagon.new('p4')
+    @unused_wagons << wagon11 = PassengerWagon.new('p5')
+    @unused_wagons << wagon12 = PassengerWagon.new('p6')
 
     @stations[0].accept_train(trains[0])
     @stations[0].accept_train(trains[1])
