@@ -18,7 +18,7 @@ class Train
   @@all_trains = {}
 
   def self.find(number)
-    puts @@all_trains[number]
+    @@all_trains[number]
   end
 
   def route_set(route)
