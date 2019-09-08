@@ -5,6 +5,16 @@ class Train
   include InstanceCounter
   attr_accessor :wagons, :route, :speed, :current_station
   attr_reader :number, :type
+
+  def initialize(number, type)
+    @number = number
+    @type = type
+    @wagons = []
+    @speed = 0
+    @@all_trains[self.number] = self
+    register_instance
+  end
+
   @@all_trains = {}
 
   def self.find(number)
