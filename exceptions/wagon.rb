@@ -6,6 +6,7 @@ class Wagon
   def initialize(number, type)
     @number = number
     @type = type
+    validate!
   end
 
   def validate!

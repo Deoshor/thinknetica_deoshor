@@ -5,9 +5,9 @@ class Route
   def initialize(first, last)
     @first = first
     @last = last
+    validate!
     @stations = [first, last]
     register_instance
-    validate!
   end
 
   def validate!
