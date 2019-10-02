@@ -33,12 +33,9 @@ class Train
     false
   end
 
-  def block_wagon(&block)
+   def each_wagon(&block)
     if block_given?
-      @wagons.each(&block)
-    else
-      puts 'Блок не передан'
-    end
+      @wagons.each { |wagon| yield(wagon) }
   end
 
   def self.find(number)
