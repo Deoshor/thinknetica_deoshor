@@ -29,12 +29,9 @@ class Station
     false
   end
 
-  def block_train(&block)
+  def each_train(&block)
     if block_given?
-      @trains.each(&block)
-    else
-      puts 'Блок не передан'
-    end
+      @trains.each { |train| yield(train) }
   end
 
   def accept_train(train)
