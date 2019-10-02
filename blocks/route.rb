@@ -32,9 +32,9 @@ class Route
   end
 
   def show_route
-      puts "Станции на маршруте #{@stations[0]} - #{@stations[-1]}"
-      @stations.each_with_index { |stations, i| puts "#{i + 1}. #{stations}" }
-      puts
-    end
+    puts "Станции на маршруте #{@stations[0]} - #{@stations[-1]}"
+    @stations.each_with_index { |stations, i| puts "#{i + 1}. #{stations}" }
+    puts
+  end
 
 end
