@@ -1,10 +1,13 @@
-# irb -r './railroad/main.rb'
 require_relative './seed.rb'
 class RailRoad
-  attr_accessor :trains, :routes, :stations, :unused_carriages
+  attr_accessor :trains, :routes, :stations, :unused_carriages, :first_station, :last_station
   attr_reader :station, :number
 
   include Seed
+  include Validation
+  
+  validate :first_station, :presence
+  validate :last_station, :presence
 
   def initialize
     @trains = []
@@ -136,12 +139,12 @@ class RailRoad
 
   def create_route
     puts 'Введите начальную станцию маршрута:'
-    first_station = gets.chomp
-    first_station = Station.new(first_station)
+    @first_station = gets.chomp
+    @first_station = Station.new(@first_station)
     puts 'Введите конечную станцию маршрута:'
-    last_station = gets.chomp
-    last_station = Station.new(last_station)
-    @routes << Route.new(first_station, last_station)
+    @last_station = gets.chomp
+    @last_station = Station.new(@last_station)
+    @routes << Route.new(@first_station, @last_station)
     route_menu
   end
 

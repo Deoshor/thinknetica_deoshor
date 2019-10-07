@@ -5,11 +5,13 @@ module Accessors
 
   module ClassMethods
     attr_accessor :history
+
     def attr_accessor_with_history(*names)
       names.each do |name|
+        attr_reader name
         var_name = "@#{name}".to_sym
 
-        define_method(name) { instance_variable_get(var_name) }
+        #define_method(name) { instance_variable_get(var_name) }
 
         define_method("#{name}=".to_sym) do |value|
           @history ||= {}
@@ -38,9 +40,4 @@ module Accessors
 
     end
   end
-end
-
-class X
-  include Accessors
-  attr_accessor_with_history :d
 end
