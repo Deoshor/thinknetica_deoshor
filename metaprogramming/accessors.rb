@@ -16,9 +16,9 @@ module Accessors
         define_method("#{name}=".to_sym) do |value|
           @history ||= {}
           @history_value ||= []
-          instance_variable_set(var_name, value)
           @history_value << instance_variable_get(var_name)
-          @history[name] = @history_value[0...-1]
+          instance_variable_set(var_name, value)
+          @history[name] = @history_value.reverse
         end
 
         define_method("#{name}_history") do
